@@ -1,4 +1,5 @@
 #include "monty.h"
+#include <stdio.h>
 
 /**
  * pchar - function to print first char in the top of stack
@@ -13,7 +14,7 @@ void pchar(stack_t **stk, unsigned int linenum)
 		printf("L%d: can't pchar, stack empty\n", linenum);
 		exit(EXIT_FAILURE);
 	}
-	if (isascii(variables.holder))
+	if (variables.holder >= 0 && variables.holder <= 127)
 		printf("%c\n", variables.holder);
 	else
 	{
@@ -30,23 +31,22 @@ void pchar(stack_t **stk, unsigned int linenum)
  */
 void pstr(stack_t **stk, __attribute__((unused)) unsigned int linenum)
 {
-	stack_t *str;
+    stack_t *str;
 
-	if (stk == NULL || *stk == NULL || variables.holder == 0)
-	{
-		printf("\n");
-		return;
-	}
+    if (stk == NULL || *stk == NULL || variables.holder == 0)
+    {
+        printf("\n");
+        return;
+    }
 
-	str = *stk;
+    str = *stk;
 
-	while (str != NULL && str->n != 0 && isascii(str->n))
-	{
-		printf("%c", str->n);
-		str = str->next;
-	}
-	printf("\n");
-
+    while (str != NULL && str->n != 0)
+    {
+        printf("%c", str->n);
+        str = str->next;
+    }
+    printf("\n");
 }
 
 /**
